@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twitter Trending Topics</title>
+    <script>
+        function runScript() {
+            fetch("/scrape")
+            .then(response => response.json())
+            .then(data => {
+                let output = `<h3>Trending Topics as of ${data.timestamp}</h3>`;
+                output += `<ul>
+                    <li>${data.trend1}</li>
+                    <li>${data.trend2}</li>
+                    <li>${data.trend3}</li>
+                    <li>${data.trend4}</li>
+                    <li>${data.trend5}</li>
+                </ul>`;
+                output += `<p>IP Address Used: ${data.ip_address}</p>`;
+                output += `<h4>JSON Data:</h4><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                document.getElementById("results").innerHTML = output;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</head>
+<body>
+    <h1>Twitter Trending Topics</h1>
+    <button onclick="runScript()">Click to Run Script</button>
+    <div id="results"></div>
+</body>
+</html>
